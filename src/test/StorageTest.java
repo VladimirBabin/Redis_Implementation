@@ -2,6 +2,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.yourcodereview.babin.task1.Storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +16,6 @@ public class StorageTest {
     List<String> listOfStrings = new ArrayList<>();
 
     Map<Object, Object> expectedMap = new HashMap<>();
-
 
     @Before
     public void setUp() throws Exception {
@@ -42,13 +42,12 @@ public class StorageTest {
     }
 
     @After
-    public void cleanTheStorage() {
+    public void cleanUp() {
         storage.deleteAll();
     }
 
     @Test
-    public void get() {
-        // проверяем что метод get работает правильно при наличии ключа и в случае приемлемого содержимого
+    public void get_CASE_OF_CORRECT_INPUT() {
         Assert.assertEquals(storage.get(123), "one-two-three");
         Assert.assertEquals(storage.get(listOfIntegers), listOfStrings);
         Assert.assertEquals(storage.get("server:name"), "fido");
@@ -73,16 +72,16 @@ public class StorageTest {
     @Test
     public void set_IF_EXISTS() {
         // проверяем что данные в storage и expectedMap равны
-        Assert.assertEquals(expectedMap, Storage.storage);
+        Assert.assertEquals(expectedMap, Storage.getStorage());
         // проверяем правильную работу метода если ключ уже существует
         Assert.assertEquals("Key overwritten", storage.set(123, "one and two and three"));
-        Assert.assertTrue(storage.storage.containsKey(123));
+        Assert.assertTrue(Storage.getStorage().containsKey(123));
     }
 
     @Test
     public void set_IF_NOT_EXISTS() {
         Assert.assertEquals("OK", storage.set(345, "three-four-five"));
-        Assert.assertTrue(storage.storage.containsKey(345));
+        Assert.assertTrue(Storage.getStorage().containsKey(345));
     }
 
     @Test
@@ -97,16 +96,16 @@ public class StorageTest {
     }
 
     @Test
-    public void delete() {
-        // проверяем что метод delete удаляет данные из storage и возвращает последнее значение по ключу
+    public void delete_CASE_OF_CORRECT_INPUT() {
         Assert.assertEquals(storage.get("server:name"), storage.delete("server:name"));
-        Assert.assertFalse(storage.storage.containsValue("fido"));
+        Assert.assertFalse(Storage.getStorage().containsValue("fido"));
         Assert.assertEquals(storage.get(123), storage.delete(123));
-        Assert.assertFalse(storage.storage.containsValue("one-two-three"));
+        Assert.assertFalse(Storage.getStorage().containsValue("one-two-three"));
         Assert.assertEquals(storage.get(listOfIntegers), storage.delete(listOfIntegers));
-        Assert.assertFalse(storage.storage.containsValue(listOfStrings));
-        Assert.assertTrue(storage.storage.isEmpty());
+        Assert.assertFalse(Storage.getStorage().containsValue(listOfStrings));
+        Assert.assertTrue(Storage.getStorage().isEmpty());
     }
+
     @Test
     public void delete_NOT_NULL() {
         Assert.assertEquals("Key should not be null", storage.delete(null));
@@ -117,6 +116,7 @@ public class StorageTest {
         Assert.assertEquals("Key should not be empty/blank", storage.delete(" "));
         Assert.assertEquals("Key should not be empty/blank", storage.delete(""));
     }
+
     @Test
     public void delete_NOT_EXISTS() {
         Assert.assertEquals("nil", storage.delete("foo"));
@@ -124,7 +124,6 @@ public class StorageTest {
 
     @Test
     public void keys() {
-        // проверяем что метод keys возвращает искомый сет значений по ключу
         Assert.assertEquals(expectedMap.keySet(), storage.keys());
     }
 
@@ -136,9 +135,8 @@ public class StorageTest {
 
     @Test
     public void deleteAll() {
-        // проверяем что storage не пустой, потом все из него удаляем и проверяем что он пустой
-        Assert.assertFalse(storage.storage.isEmpty());
+        Assert.assertFalse(Storage.getStorage().isEmpty());
         storage.deleteAll();
-        Assert.assertTrue(storage.storage.isEmpty());
+        Assert.assertTrue(Storage.getStorage().isEmpty());
     }
 }

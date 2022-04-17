@@ -1,9 +1,14 @@
+package org.yourcodereview.babin.task1;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Storage {
-    public static Map<Object, Object> storage = new HashMap<>();
+    private final static Map<Object, Object> storage = new HashMap<>();
+
+    public static Map<Object, Object> getStorage() {
+        return storage;
+    }
 
     public Object get(Object key) {
         if (key == null) {
