@@ -1,4 +1,4 @@
-# CodeReview
+# Redis Implementation
 
 #### About the project:
 This is an implementation of Redis with operators GET, SET, DELETE, KEYS
