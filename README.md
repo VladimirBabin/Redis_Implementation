@@ -8,7 +8,7 @@ Open this project with your IDE, start the Server by starting main method in org
 
 #### Code details:
 There are 3 .java files: org.yourcodereview.babin.task1.Storage and org.yourcodereview.babin.task1.RedisHttpServer in src.main.java package and StorageTest in src.test.java package.
-org.yourcodereview.babin.task1.Storage class is a core of the project, there a based on HashMap storage for redis itself is implemented with 4 main operators. Each of them completes its functional part which follows from the name of the method and returns a String, explaining the result.
+org.yourcodereview.babin.task1.Storage class is a core of the project, where a based on HashMap storage for Redis is implemented with 4 main operators. Each of them completes its functional part which follows from the name of the method and returns a String, explaining the result.
 
 Get method returns nil if there is no such key and value, which corresponds to the key if there is one.
 
